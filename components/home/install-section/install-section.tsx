@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 
 import { LINKS } from "@/lib/links";
 
+import { OfficialDownload } from "./official-download";
 import { SmartScreenMockup } from "./smartscreen-mockup";
 
 type Step = { title: string; body: ReactNode; extra?: ReactNode };
@@ -15,7 +16,8 @@ const STEPS: Step[] = [
     title: "Baixe o instalador",
     body: (
       <>
-        O botão baixa o <code className="font-mono text-foreground">NitroHub-Setup.exe</code>, sempre a versão mais recente, direto do GitHub.
+        O botão baixa o <code className="font-mono text-foreground">NitroHub-Setup.exe</code>, sempre a versão mais recente, direto do GitHub oficial. Não baixe de links que
+        mandarem no Discord ou em outros sites.
       </>
     ),
     extra: <DownloadLink size="md" className="mt-5" />,
@@ -67,6 +69,8 @@ export function InstallSection() {
             </li>
           ))}
         </ol>
+
+        <OfficialDownload />
 
         <div className="mt-6 grid gap-4 text-sm leading-relaxed text-muted-foreground md:grid-cols-2">
           <p className="rounded-xl border border-border p-4">

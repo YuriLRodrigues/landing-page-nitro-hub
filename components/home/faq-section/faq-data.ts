@@ -24,6 +24,11 @@ export const FAQ: FaqItem[] = [
     answer: "Sim. O NITRO HUB roda no **Windows 10 e no Windows 11, de 64 bits**, e o .NET já vem dentro do app. Notebook ou PC de mesa, com placa NVIDIA, AMD ou Intel.",
   },
   {
+    question: "Como sei se o NITRO HUB que eu baixei é o oficial?",
+    answer:
+      'Baixe só por este site ou pela [página oficial no GitHub](https://github.com/YuriLRodrigues/nitro-hub/releases). No PowerShell, rode `Get-FileHash .\\NitroHub-Setup.exe` na pasta do arquivo e compare com o SHA-256 da seção [Como instalar](/#download-oficial). O NITRO HUB **nunca** é enviado em .zip com senha ou por link no Discord, nunca pede login de nada e nunca pede para desativar o antivírus. Se alguém te mandou um "NITRO HUB" assim, é golpe.',
+  },
+  {
     question: "Posso usar com jogos que têm anti-cheat?",
     answer:
       "O overlay mede o FPS pelos eventos do próprio Windows (ETW), do mesmo jeito que o PresentMon, e **não injeta nada no jogo**: ele é uma janela transparente por cima, que ignora cliques. Por isso não aparece em tela cheia exclusiva — use o modo janela sem borda. Mesmo assim, cada jogo tem as próprias regras; na dúvida, confira as do seu.",
