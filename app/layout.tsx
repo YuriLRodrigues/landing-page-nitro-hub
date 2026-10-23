@@ -19,14 +19,20 @@ const oswald = Oswald({ variable: "--font-oswald", subsets: ["latin"], weight: "
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
-  title: SITE.title,
+  title: { default: SITE.title, template: `%s · ${SITE.name}` },
   description: SITE.description,
   applicationName: SITE.name,
   authors: [{ name: AUTHOR, url: LINKS.authorGithub }],
   creator: AUTHOR,
-  keywords: ["NITRO HUB", "overlay de FPS", "FPS", "PC gamer", "otimizar Windows", "overclock", "sensores", "temperatura", "CPU-Z", "Windows 11", "grátis"],
+  keywords: [...SITE.keywords],
+  category: "technology",
   alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
+  /** Códigos do Google Search Console e do Bing Webmaster Tools (método "tag HTML"), definidos na Vercel. */
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : undefined,
+  },
   openGraph: {
     type: "website",
     locale: "pt_BR",

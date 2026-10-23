@@ -22,12 +22,12 @@ export function HeroSection() {
           </p>
 
           <h1 id="hero-title" className="mt-6 font-display text-[clamp(2.4rem,7.4vw,4.3rem)] leading-[1.02] font-black tracking-[-0.045em] text-balance">
-            Seu PC gamer, <GradientText>num app só.</GradientText>
+            Mais desempenho no seu PC, <GradientText>num app só.</GradientText>
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            O <strong className="font-semibold text-foreground">NITRO HUB</strong> mostra o FPS e as temperaturas enquanto você joga, deixa o Windows pronto para jogar com um
-            clique e ajuda a descobrir o que está pesando no computador.
+            O <strong className="font-semibold text-foreground">NITRO HUB</strong> é um app grátis para otimizar o PC para jogos no Windows 11 e 10: mostra o FPS e as temperaturas
+            enquanto você joga, deixa o Windows pronto para jogar com um clique e ajuda a descobrir o que está pesando no computador.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">

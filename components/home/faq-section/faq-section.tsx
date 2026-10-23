@@ -1,5 +1,6 @@
 import { SectionHeading } from "@/components/home/section-heading";
 import { Container } from "@/components/ui/container";
+import { RichText } from "@/components/ui/rich-text";
 
 import { ChevronDown } from "lucide-react";
 
@@ -25,7 +26,9 @@ export function FaqSection() {
                 <span>{question}</span>
                 <ChevronDown className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" aria-hidden />
               </summary>
-              <p className="-mt-1 pb-5 text-[0.9375rem] leading-relaxed text-muted-foreground">{answer}</p>
+              <p className="-mt-1 pb-5 text-[0.9375rem] leading-relaxed text-muted-foreground">
+                <RichText text={answer} />
+              </p>
             </details>
           ))}
         </div>

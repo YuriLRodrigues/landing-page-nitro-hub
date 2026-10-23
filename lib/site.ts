@@ -1,5 +1,31 @@
 export const SITE = {
   name: "NITRO HUB",
-  title: "NITRO HUB — FPS, sensores e otimização para o seu PC gamer",
-  description: "App gratuito para Windows 10 e 11: overlay de FPS, sensores e alertas, Modo jogo, overclock com áreas de risco e otimizações do Windows com botão de desfazer.",
+  /** Endereço de produção: canonical, sitemap e Open Graph usam este quando `NEXT_PUBLIC_SITE_URL` não está definida. */
+  url: "https://nitro-hub-lp.vercel.app",
+  title: "NITRO HUB — Otimizar o PC e aumentar o FPS no Windows 11 e 10",
+  description: "App grátis em português para melhorar o desempenho do PC no Windows 11 e 10: overlay de FPS, Modo jogo, otimizações com desfazer, sensores e overclock.",
+  /** O Google ignora a meta keywords, mas o Bing ainda a lê; o que conta mesmo são os títulos e os textos da página. */
+  keywords: [
+    "melhorar desempenho do PC",
+    "desempenho Windows 11",
+    "desempenho Windows 10",
+    "performance Windows 11",
+    "performance Windows 10",
+    "otimizar Windows 11",
+    "otimizar Windows 10",
+    "otimizar PC para jogos",
+    "aumentar FPS",
+    "PC lento",
+    "overlay de FPS",
+    "medir FPS",
+    "temperatura da CPU e GPU",
+    "tela esticada VALORANT",
+    "resolução esticada",
+    "modo jogo",
+    "overclock GPU NVIDIA",
+    "CPU-Z",
+    "GPU-Z",
+    "programa grátis para PC gamer",
+    "NITRO HUB",
+  ],
 } as const;

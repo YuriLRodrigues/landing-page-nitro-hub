@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { NitroLogo, NitroWordmark } from "@/components/brand/nitro-logo";
 import { DownloadLink } from "@/components/home/download-link";
 import { GitHubIcon } from "@/components/icons/github-icon";
@@ -10,10 +12,10 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/75 backdrop-blur-xl backdrop-saturate-150">
       <Container className="flex h-16 items-center justify-between gap-3">
-        <a href="#inicio" className="group flex min-w-0 items-center gap-2.5 rounded-lg" aria-label="NITRO HUB, voltar ao início">
+        <Link href="/" className="group flex min-w-0 items-center gap-2.5 rounded-lg" aria-label="NITRO HUB, voltar ao início">
           <NitroLogo size={36} className="transition-shadow duration-300 group-hover:shadow-[0_10px_32px_-6px_color-mix(in_oklch,var(--color-primary)_35%,transparent)]" />
           <NitroWordmark className="text-[1.05rem] sm:text-lg" />
-        </a>
+        </Link>
 
         <nav aria-label="Seções da página" className="hidden items-center gap-1 md:flex">
           {NAV_LINKS.map(({ href, label }) => (

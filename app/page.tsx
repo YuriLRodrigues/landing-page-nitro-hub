@@ -1,43 +1,92 @@
 import { FaqSection } from "@/components/home/faq-section";
+import { FAQ } from "@/components/home/faq-section/faq-data";
 import { FeaturesSection } from "@/components/home/features-section";
 import { FinalCtaSection } from "@/components/home/final-cta-section";
+import { GuidesSection } from "@/components/home/guides-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { InstallSection } from "@/components/home/install-section";
 import { PurposeSection } from "@/components/home/purpose-section";
 import { RequirementsSection } from "@/components/home/requirements-section";
 import { SafetySection } from "@/components/home/safety-section";
+import { JsonLd } from "@/components/seo/json-ld";
 
 import { AUTHOR, LINKS } from "@/lib/links";
+import { plainText } from "@/lib/rich-text";
 import { SITE } from "@/lib/site";
 import { getSiteUrl } from "@/lib/site-url";
 
-/** Dados estruturados (schema.org) para buscadores: app gratuito para Windows. */
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: SITE.name,
-  description: SITE.description,
-  url: getSiteUrl(),
-  applicationCategory: "UtilitiesApplication",
-  operatingSystem: "Windows 10, Windows 11 (64 bits)",
-  inLanguage: "pt-BR",
-  downloadUrl: LINKS.download,
-  license: "https://opensource.org/licenses/MIT",
-  isAccessibleForFree: true,
-  offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
-  author: { "@type": "Person", name: AUTHOR, url: LINKS.authorGithub },
-};
+/** Dados estruturados (schema.org) para buscadores: o site, o app gratuito para Windows e as perguntas frequentes. */
+function homeJsonLd() {
+  const base = getSiteUrl();
+  const author = { "@type": "Person", "@id": `${base}/#autor`, name: AUTHOR, url: LINKS.authorGithub, sameAs: [LINKS.authorGithub, LINKS.portfolio] };
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      author,
+      {
+        "@type": "WebSite",
+        "@id": `${base}/#site`,
+        name: SITE.name,
+        url: base,
+        description: SITE.description,
+        inLanguage: "pt-BR",
+        publisher: { "@id": `${base}/#autor` },
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": `${base}/#app`,
+        name: SITE.name,
+        description: SITE.description,
+        url: base,
+        image: `${base}/opengraph-image`,
+        applicationCategory: "UtilitiesApplication",
+        applicationSubCategory: "Otimização e monitoramento de PC para jogos",
+        operatingSystem: "Windows 11, Windows 10 (64 bits)",
+        inLanguage: "pt-BR",
+        downloadUrl: LINKS.download,
+        installUrl: LINKS.download,
+        license: "https://opensource.org/licenses/MIT",
+        isAccessibleForFree: true,
+        offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+        featureList: [
+          "Overlay de FPS com frametime, 1% e 0,1% low",
+          "Modo jogo que prepara o Windows e desfaz ao fechar o jogo",
+          "Otimizações do Windows 11 e 10 com botão de desfazer",
+          "Sensores de temperatura, uso e clock com alertas",
+          "Overclock de GPU NVIDIA com áreas de risco",
+          "Detector de gargalo e de engasgos (DPC/ISR)",
+          "Fichas do processador e da placa de vídeo",
+          "Benchmarks e stress test",
+          "Painel no celular pela rede local",
+        ],
+        keywords: SITE.keywords.join(", "),
+        author: { "@id": `${base}/#autor` },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${base}/#duvidas`,
+        mainEntity: FAQ.map(({ question, answer }) => ({
+          "@type": "Question",
+          name: question,
+          acceptedAnswer: { "@type": "Answer", text: plainText(answer) },
+        })),
+      },
+    ],
+  };
+}
 
 export default function Home() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <JsonLd data={homeJsonLd()} />
       <HeroSection />
       <PurposeSection />
       <FeaturesSection />
       <SafetySection />
       <InstallSection />
       <RequirementsSection />
+      <GuidesSection />
       <FaqSection />
       <FinalCtaSection />
     </>

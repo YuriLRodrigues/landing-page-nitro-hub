@@ -1,15 +1,16 @@
+import { SITE } from "@/lib/site";
+
 /**
  * URL pública do site (canonical, Open Graph, sitemap).
- * Ordem: NEXT_PUBLIC_SITE_URL (domínio próprio) → domínio de produção da Vercel → URL do deploy → localhost.
+ * Ordem: NEXT_PUBLIC_SITE_URL (domínio próprio) → URL do deploy de prévia da Vercel → endereço de produção (`SITE.url`).
  */
 export function getSiteUrl(): string {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL;
   if (fromEnv) {
     return fromEnv.replace(/\/$/, "");
   }
-  const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
-  if (vercelHost) {
-    return `https://${vercelHost}`.replace(/\/$/, "");
+  if (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
   }
-  return "http://localhost:3000";
+  return SITE.url;
 }
