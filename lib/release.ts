@@ -4,11 +4,12 @@ export type LatestRelease = { version: string; setupSha256: string; setupSize: n
 
 /**
  * Versão e SHA-256 do instalador oficial, lidos do version.json da release "latest" no GitHub (o mesmo arquivo que a
- * atualização automática do app usa). Revalida a cada hora; se o GitHub não responder, a página mostra só o link.
+ * atualização automática do app usa). Revalida a cada 10 minutos, porque cada build publica um instalador com outro hash;
+ * se o GitHub não responder, a página mostra só o link.
  */
 export async function getLatestRelease(): Promise<LatestRelease | null> {
   try {
-    const res = await fetch(LINKS.versionJson, { next: { revalidate: 3600 } });
+    const res = await fetch(LINKS.versionJson, { next: { revalidate: 600 } });
     if (!res.ok) {
       return null;
     }
