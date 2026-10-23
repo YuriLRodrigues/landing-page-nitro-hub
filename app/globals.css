@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-ring: var(--ring);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-archivo), var(--font-geist-sans), system-ui, sans-serif;
+  --font-wordmark: var(--font-oswald), var(--font-geist-sans), system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+/*
+ * Tema escuro único. Fundos e cartões iguais ao tema escuro do portfólio;
+ * a cor de destaque é a "Nitro" (#7C6CFF), padrão do próprio app, e os selos
+ * verde/amarelo/vermelho são os do tema escuro do NITRO HUB.
+ */
+:root {
+  color-scheme: dark;
+  --background: oklch(0.09 0 0);
+  --foreground: oklch(0.93 0 0);
+  --card: oklch(0.125 0 0);
+  --muted: oklch(0.165 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --primary: #7c6cff;
+  /* Fundo dos botões: texto branco com contraste de 5,4:1 */
+  --primary-strong: #6150f0;
+  --primary-foreground: #ffffff;
+  /* Destaque claro para texto pequeno sobre fundos escuros */
+  --primary-soft: #b3a9ff;
+  --ring: var(--primary-soft);
+  --ok: #4ade80;
+  --warn: #fbbf24;
+  --bad: #f87171;
+  --radius: 0.625rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    scrollbar-color: color-mix(in oklch, var(--foreground) 14%, var(--background)) transparent;
+    scrollbar-width: thin;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 45%, transparent);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    background-color: color-mix(in oklch, var(--foreground) 14%, var(--background));
+  }
+}
+
+/* Gráfico de frametime do overlay: a linha corre para a esquerda, como no jogo. */
+@keyframes frametime-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .animate-frametime {
+    animation: frametime-scroll 9s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
