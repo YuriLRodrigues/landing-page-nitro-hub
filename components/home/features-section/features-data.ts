@@ -30,7 +30,7 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
       {
         title: "Modo jogo",
         description:
-          "Fecha os programas de segundo plano (menos os que você quer manter, como o Discord), limpa a RAM e os arquivos temporários, liga o plano Alto desempenho e troca a resolução — em Dell e Alienware, também o modo térmico. VALORANT, CS2 e EA FC 26 já vêm configurados.",
+          "Fecha os programas de segundo plano (menos os que você quer manter, como o Discord), limpa a RAM e os arquivos temporários, liga o plano Alto desempenho e troca a resolução — em Dell e Alienware, também o modo térmico. Ao adicionar um jogo, um passo a passo ajuda a configurar (dá para pular qualquer passo), inclusive a tela esticada do VALORANT.",
       },
       {
         title: "Overlay de FPS",
@@ -74,6 +74,11 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
         tag: "NITRO OTIMIZA",
         description:
           "Plano Alto desempenho, Modo de Jogo, Game DVR, HAGS, aceleração do mouse, core parking, telemetria e outros, cada um com interruptor e “Restaurar originais”. Defender, VBS, UAC e Windows Update ficam como estão.",
+      },
+      {
+        title: "Ajustes da placa de vídeo",
+        description:
+          "Mostra o que está configurado e o que recomendamos para jogos no driver NVIDIA, AMD ou Intel e nas opções gráficas do Windows — atual x recomendado, sem alterar nada.",
       },
       {
         title: "Benchmarks e stress test",
