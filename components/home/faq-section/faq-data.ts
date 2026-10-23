@@ -7,7 +7,7 @@ export type FaqItem = { question: string; answer: string };
 export const FAQ: FaqItem[] = [
   {
     question: "É grátis mesmo?",
-    answer: `Sim. O NITRO HUB é gratuito e de código aberto, com licença MIT: o código está no [GitHub](${LINKS.repo}) para quem quiser ver como funciona.`,
+    answer: `Sim. O NITRO HUB é gratuito, sem anúncios e sem cadastro. Os instaladores e as novidades de cada versão ficam na [página oficial no GitHub](${LINKS.releases}).`,
   },
   {
     question: "Como melhorar o desempenho do PC no Windows 11 ou 10?",

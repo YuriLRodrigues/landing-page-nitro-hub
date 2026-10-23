@@ -35,7 +35,7 @@ export function SiteHeader() {
             target="_blank"
             rel="noopener noreferrer"
             className="hidden size-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary/50 hover:bg-primary/10 hover:text-foreground sm:flex"
-            aria-label="Código do NITRO HUB no GitHub (abre em nova aba)"
+            aria-label="NITRO HUB no GitHub: versões e novidades (abre em nova aba)"
           >
             <GitHubIcon className="size-4" />
           </a>

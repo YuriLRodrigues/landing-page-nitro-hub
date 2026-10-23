@@ -43,8 +43,7 @@ export async function OfficialDownload() {
           </p>
         )}
         <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-          A partir da v0.22, cada versão também tem um atestado de origem do GitHub, que prova que o arquivo saiu do código oficial:{" "}
-          <code className="font-mono break-all text-foreground/85">gh attestation verify NitroHub-Setup.exe --repo YuriLRodrigues/nitro-hub</code>
+          Cada versão no GitHub também traz o arquivo <code className="font-mono text-foreground/85">SHA256SUMS.txt</code>, com o hash de todos os arquivos dela.
         </p>
       </div>
 

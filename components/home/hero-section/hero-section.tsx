@@ -18,7 +18,7 @@ export function HeroSection() {
         <div className="min-w-0">
           <p className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[11px] font-semibold tracking-[0.16em] text-primary-soft uppercase">
             <span className="size-1.5 rounded-full bg-ok" aria-hidden />
-            Grátis e de código aberto
+            Grátis e sem anúncios
           </p>
 
           <h1 id="hero-title" className="mt-6 font-display text-[clamp(2.4rem,7.4vw,4.3rem)] leading-[1.02] font-black tracking-[-0.045em] text-balance">
@@ -32,9 +32,9 @@ export function HeroSection() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <DownloadLink className="w-full sm:w-auto" />
-            <a href={LINKS.repo} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full sm:w-auto")}>
+            <a href={LINKS.releases} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full sm:w-auto")}>
               <GitHubIcon />
-              Ver o código
+              Ver no GitHub
             </a>
           </div>
 

@@ -59,7 +59,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <a href={LINKS.repo} {...external} className={linkClassName}>
-                  Código do app no GitHub
+                  Problemas e sugestões (GitHub)
                 </a>
               </li>
             </ul>
@@ -97,7 +97,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 font-mono text-[11px] leading-relaxed text-muted-foreground sm:flex-row sm:items-start sm:justify-between">
           <p>
-            © {year} NITRO HUB · licença MIT. Baseado no{" "}
+            © {year} NITRO HUB · {AUTHOR}. Baseado no{" "}
             <a href={LINKS.resetExplode} {...external} className="rounded-sm text-foreground/85 underline decoration-foreground/30 underline-offset-4 hover:decoration-foreground">
               RESET EXPLODE
             </a>

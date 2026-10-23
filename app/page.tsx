@@ -46,7 +46,6 @@ function homeJsonLd() {
         inLanguage: "pt-BR",
         downloadUrl: LINKS.download,
         installUrl: LINKS.download,
-        license: "https://opensource.org/licenses/MIT",
         isAccessibleForFree: true,
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
         featureList: [
