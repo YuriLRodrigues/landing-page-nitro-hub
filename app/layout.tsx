@@ -56,6 +56,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable} ${archivo.variable} ${oswald.variable} h-full antialiased`}>
+      <head>
+        <noscript>
+          <style>{".reveal{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
+      </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <a
           href="#conteudo"

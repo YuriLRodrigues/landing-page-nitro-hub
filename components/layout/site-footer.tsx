@@ -3,6 +3,7 @@ import Link from "next/link";
 import { NitroLogo, NitroWordmark } from "@/components/brand/nitro-logo";
 import { Container } from "@/components/ui/container";
 
+import { FEATURES } from "@/lib/features";
 import { GUIDES } from "@/lib/guides";
 import { AUTHOR, LINKS } from "@/lib/links";
 import { ArrowUpRight } from "lucide-react";
@@ -19,7 +20,7 @@ export function SiteFooter() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" aria-hidden />
 
       <Container className="py-12 sm:py-14">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
           <div className="max-w-sm">
             <div className="flex items-center gap-2.5">
               <NitroLogo size={34} />
@@ -61,6 +62,24 @@ export function SiteFooter() {
                 <a href={LINKS.repo} {...external} className={linkClassName}>
                   Problemas e sugestões (GitHub)
                 </a>
+              </li>
+            </ul>
+          </nav>
+
+          <nav aria-label="Recursos">
+            <p className="font-mono text-[10px] font-semibold tracking-[0.22em] text-primary uppercase">Recursos</p>
+            <ul className="mt-4 space-y-2.5">
+              {FEATURES.filter((f) => ["modo-jogo", "overlay-de-fps", "otimizacao-do-windows", "limpeza", "overclock"].includes(f.slug)).map(({ slug, title }) => (
+                <li key={slug}>
+                  <Link href={`/recursos/${slug}`} className={linkClassName}>
+                    {title}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/recursos" className={linkClassName}>
+                  Todos os recursos
+                </Link>
               </li>
             </ul>
           </nav>

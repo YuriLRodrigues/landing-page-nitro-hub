@@ -8,16 +8,20 @@ import { Container } from "@/components/ui/container";
 import { LINKS } from "@/lib/links";
 import { NAV_LINKS } from "@/lib/navigation";
 
+import { MobileMenu } from "./mobile-menu";
+import { RecursosMenu } from "./recursos-menu";
+
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/75 backdrop-blur-xl backdrop-saturate-150">
-      <Container className="flex h-16 items-center justify-between gap-3">
+      <Container className="relative flex h-16 items-center justify-between gap-3">
         <Link href="/" className="group flex min-w-0 items-center gap-2.5 rounded-lg" aria-label="NITRO HUB, voltar ao início">
           <NitroLogo size={36} className="transition-shadow duration-300 group-hover:shadow-[0_10px_32px_-6px_color-mix(in_oklch,var(--color-primary)_35%,transparent)]" />
           <NitroWordmark className="text-[1.05rem] sm:text-lg" />
         </Link>
 
         <nav aria-label="Seções da página" className="hidden items-center gap-1 md:flex">
+          <RecursosMenu />
           {NAV_LINKS.map(({ href, label }) => (
             <a
               key={href}
@@ -40,6 +44,7 @@ export function SiteHeader() {
             <GitHubIcon className="size-4" />
           </a>
           <DownloadLink size="sm" label="Baixar" />
+          <MobileMenu />
         </div>
       </Container>
     </header>

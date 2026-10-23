@@ -53,7 +53,7 @@ Abra <http://localhost:3000>.
 
 - O botão de download aponta para `releases/latest/download/NitroHub-Setup.exe`, então **não precisa mudar a cada versão**,
   desde que a release `latest` continue com esse nome de arquivo.
-- Os textos vêm do `README.md` e do `NOVIDADES.md` do app. Ao lançar um recurso novo, acrescente-o em `features-data.ts`.
+- Os textos vêm do `README.md` e do `NOVIDADES.md` do app. Ao lançar um recurso novo, acrescente-o em `lib/features.ts` (com `isNew: true`): a página /recursos/[slug], o menu Recursos, a página inicial, o rodapé e o sitemap saem dali.
 - Não há capturas de tela: as "telas" são ilustrações em HTML/CSS (`components/home/**/mockups`, overlay do topo em
   `components/home/hero-section`). Os números nelas são de exemplo.
 

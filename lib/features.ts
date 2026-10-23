@@ -1,0 +1,453 @@
+import {
+  BrushCleaning,
+  ChartColumn,
+  Cpu,
+  Gamepad2,
+  Gauge,
+  Library,
+  type LucideIcon,
+  MonitorCog,
+  Palette,
+  Power,
+  Search,
+  SearchCheck,
+  Share2,
+  SlidersHorizontal,
+  Smartphone,
+  Thermometer,
+  Usb,
+  Zap,
+} from "lucide-react";
+
+/**
+ * Recursos do NITRO HUB: cada um tem página própria em /recursos/[slug] e aparece no menu Recursos, na página inicial e no
+ * sitemap. Fonte: README.md e NOVIDADES.md do app (nada aqui é planejado). Textos com a marcação de `lib/rich-text`.
+ */
+export type GroupId = "jogo" | "desempenho" | "sensores" | "diagnostico" | "ferramentas";
+export type MockupId = "game-mode" | "oc-risk" | "phone" | "cpu-sheet";
+
+export type FeatureGroup = { id: GroupId; kicker: string; title: string; intro: string; mockup?: MockupId };
+
+export type Feature = {
+  slug: string;
+  group: GroupId;
+  title: string;
+  /** Referência que ajuda a entender ("estilo Afterburner") ou o nome da tela no app. */
+  tag?: string;
+  /** Chegou na versão mais recente. */
+  isNew?: boolean;
+  Icon: LucideIcon;
+  /** Uma ou duas frases: cartões e menu. */
+  summary: string;
+  /** Título da aba e do Google (o layout acrescenta "· NITRO HUB"). */
+  metaTitle: string;
+  /** Abertura da página. */
+  intro: string;
+  highlights: { title: string; text: string }[];
+  steps: string[];
+  note?: { kind: "info" | "warn"; title: string; text: string };
+  /** Guia relacionado em /guias. */
+  guide?: string;
+  keywords: string[];
+};
+
+export const GROUPS: FeatureGroup[] = [
+  {
+    id: "jogo",
+    kicker: "No jogo",
+    title: "Do clique em JOGAR até o resumo da partida",
+    intro: "Escolha o jogo e clique em JOGAR: o app prepara o PC. Quando o jogo fecha, tudo volta ao normal e a partida fica registrada.",
+    mockup: "game-mode",
+  },
+  {
+    id: "desempenho",
+    kicker: "Desempenho",
+    title: "Mais desempenho, com o risco à vista",
+    intro: "Nenhum ajuste escondido: cada mudança tem interruptor, explicação e caminho de volta.",
+    mockup: "oc-risk",
+  },
+  {
+    id: "sensores",
+    kicker: "Sensores e alertas",
+    title: "Temperatura e uso onde você estiver olhando",
+    intro: "Os sensores ficam sempre à mão: na janela do app, no ícone perto do relógio e até no celular.",
+    mockup: "phone",
+  },
+  {
+    id: "diagnostico",
+    kicker: "Diagnóstico",
+    title: "Descubra o que está travando o PC",
+    intro: "Quando o jogo engasga ou o PC parece lento, o app aponta a causa provável em vez de mostrar só números.",
+    mockup: "cpu-sheet",
+  },
+  {
+    id: "ferramentas",
+    kicker: "Ferramentas",
+    title: "Para depois de formatar e para o dia a dia",
+    intro: "Limpeza com quarentena, busca rápida, programas que abrem com o Windows, instalação de apps e a aparência do seu jeito.",
+  },
+];
+
+export const FEATURES: Feature[] = [
+  // ---------------- No jogo ----------------
+  {
+    slug: "modo-jogo",
+    group: "jogo",
+    title: "Modo jogo",
+    Icon: Gamepad2,
+    summary: "Fecha o que pesa em segundo plano, limpa a RAM, liga o Alto desempenho e ajusta a tela. Quando o jogo fecha, desfaz tudo.",
+    metaTitle: "Modo jogo para Windows: feche o que pesa e jogue com mais FPS",
+    intro:
+      "Clique em **JOGAR** e o NITRO HUB prepara o PC para o jogo: fecha o que está pesando, troca energia e resolução e, em notebooks Dell e Alienware, o modo térmico. Quando o jogo fecha, **tudo volta ao que era**.",
+    highlights: [
+      { title: "Fecha o que pesa", text: "Programas de segundo plano saem da frente, menos os que você quer manter, como o Discord." },
+      { title: "Limpa a RAM e os temporários", text: "Libera memória e a pasta Temp antes de abrir o jogo." },
+      { title: "Energia e tela", text: "Liga o plano Alto desempenho e troca a resolução e a taxa de atualização só durante o jogo." },
+      { title: "Tela esticada", text: "Desativa os monitores durante a partida para a resolução esticada (full stretched) do VALORANT funcionar." },
+      { title: "Passo a passo", text: "Ao adicionar um jogo, um passo a passo ajuda a configurar. Dá para pular qualquer passo." },
+      { title: "Volta ao normal", text: "Ao fechar o jogo, ou em VOLTAR AO NORMAL, monitores, resolução, energia e programas voltam como estavam." },
+    ],
+    steps: ["Adicione o jogo (a Biblioteca encontra os da Steam, Epic, GOG, Ubisoft e Riot).", "Siga o passo a passo ou pule o que não quiser.", "Clique em **JOGAR**."],
+    guide: "melhorar-desempenho-windows",
+    keywords: ["modo jogo", "otimizar PC para jogos", "fechar programas em segundo plano", "aumentar FPS"],
+  },
+  {
+    slug: "overlay-de-fps",
+    group: "jogo",
+    title: "Overlay de FPS",
+    tag: "estilo Afterburner",
+    Icon: Gauge,
+    summary: "FPS, frametime, 1% low e gráfico, mais temperatura, uso e clock da GPU e da CPU por cima do jogo. Sem injetar nada.",
+    metaTitle: "Overlay de FPS grátis para Windows (estilo Afterburner)",
+    intro:
+      "Veja o FPS e as temperaturas por cima do jogo, do jeito que você quiser. O FPS é medido pelos eventos do próprio Windows (ETW), como o PresentMon, **sem injetar nada no jogo**.",
+    highlights: [
+      { title: "FPS de verdade", text: "FPS, frametime, 1% e 0,1% low e um gráfico de frametime ao vivo." },
+      { title: "Tudo da GPU e da CPU", text: "Uso, temperatura, clock e consumo, mais VRAM e RAM usadas." },
+      { title: "Do seu jeito", text: "Escolha, renomeie e reordene cada item; mude posição, tamanho, fonte, cores e o layout (vertical, horizontal ou detalhado)." },
+      { title: "Atalho de teclado", text: "Liga e desliga com um atalho (Ctrl+Shift+O por padrão), sem sair do jogo." },
+      { title: "Seguro com anti-cheat", text: "É uma janela transparente por cima, que ignora cliques. Não toca no processo do jogo." },
+    ],
+    steps: ["Abra NITRO JOGOS › Overlay.", "Escolha os itens e o estilo (há um modelo pronto no estilo Afterburner).", "Jogue em **janela sem borda** e use o atalho."],
+    note: { kind: "info", title: "Tela cheia exclusiva", text: "Em tela cheia exclusiva o Windows não deixa nenhuma janela por cima. Use o modo janela sem borda do jogo." },
+    guide: "aumentar-fps",
+    keywords: ["overlay de FPS", "mostrar FPS na tela", "contador de FPS", "1% low", "frametime"],
+  },
+  {
+    slug: "biblioteca-e-sessoes",
+    group: "jogo",
+    title: "Biblioteca e sessões de jogo",
+    Icon: Library,
+    summary: "Seus jogos com capa e tempo jogado, um perfil por jogo e o resumo de cada partida: FPS, 1% low, engasgos e temperaturas.",
+    metaTitle: "Biblioteca de jogos e histórico de FPS por partida",
+    intro: "A Biblioteca junta os jogos de todas as lojas num lugar só, e cada partida fica gravada para você comparar depois.",
+    highlights: [
+      { title: "Todas as lojas", text: "Encontra os jogos da Steam, Epic Games, GOG, Ubisoft Connect e Riot, com capa e tempo jogado (inclusive o da Steam)." },
+      { title: "Perfil por jogo", text: "Prioridade, GPU dedicada, gráficos e programas que abrem junto." },
+      { title: "Cada partida registrada", text: "FPS médio, 1% e 0,1% low, engasgos, temperaturas e gargalo." },
+      { title: "Resumo e comparação", text: "Ao fechar o jogo vem o resumo com gráfico de frametime. Dá para comparar duas sessões." },
+    ],
+    steps: ["Abra NITRO JOGOS › Biblioteca.", "Escolha o jogo e ajuste o perfil, se quiser.", "Jogue: a sessão aparece em Sessões quando o jogo fecha."],
+    keywords: ["biblioteca de jogos", "histórico de FPS", "tempo jogado"],
+  },
+  {
+    slug: "perfis-compartilhaveis",
+    group: "jogo",
+    title: "Perfis compartilháveis",
+    tag: ".nitroperfil",
+    Icon: Share2,
+    summary: "Exporte o perfil de um jogo, o overlay ou a aparência num arquivo e mande para um amigo. Quem importa escolhe o que trazer.",
+    metaTitle: "Perfis compartilháveis: mande suas configurações para um amigo",
+    intro: "Configurou tudo do seu jeito? Gere um arquivo **.nitroperfil** e mande para um amigo. Dois cliques no arquivo abrem a importação no NITRO HUB.",
+    highlights: [
+      { title: "Escolha o que vai", text: "Jogo, desempenho, programas, telas, overclock, overlay e aparência: você marca o que entra no arquivo." },
+      { title: "Escolha o que vem", text: "Quem importa vê cada parte e marca só o que quer trazer." },
+      { title: "Risco à vista", text: "Overclock de outra placa e argumentos de inicialização com comandos vêm marcados como risco e desmarcados." },
+      { title: "Sem caminhos nem programas", text: "O arquivo nunca leva o .exe do jogo nem programas: só configurações, conferidas ao importar." },
+    ],
+    steps: [
+      "No Modo jogo, Overlay ou Aparência, clique em EXPORTAR PERFIL.",
+      "Marque as partes e salve o arquivo.",
+      "Quem recebe dá dois cliques no arquivo e escolhe o que importar.",
+    ],
+    keywords: ["perfil de configuração", "compartilhar configurações", "nitroperfil"],
+  },
+
+  // ---------------- Desempenho ----------------
+  {
+    slug: "overclock",
+    group: "desempenho",
+    title: "Overclock com áreas de risco",
+    tag: "NITRO OC",
+    Icon: Zap,
+    summary: "Clock do núcleo e da memória da GPU NVIDIA, limites de energia e verificador de estabilidade, com o risco de cada ajuste marcado.",
+    metaTitle: "Overclock de GPU NVIDIA com áreas de risco e teste de estabilidade",
+    intro: "Overclock sem susto: cada área vem marcada como **Seguro**, **Risco moderado** ou **Risco alto**, e por padrão tudo vale só até reiniciar o PC.",
+    highlights: [
+      { title: "Núcleo e memória", text: "Ajuste os clocks da GPU NVIDIA, de mesa ou de notebook." },
+      { title: "Limites", text: "Limite de energia e de clock (no notebook, o de energia fica com o Dynamic Boost)." },
+      { title: "Risco trancado", text: 'O risco alto só libera depois de você confirmar "Entendo os riscos".' },
+      { title: "Teste de estabilidade", text: "Um verificador acusa travamento e erros antes de você confiar no ajuste." },
+    ],
+    steps: ["Abra NITRO DESEMPENHO › Overclock.", "Suba aos poucos e rode o verificador de estabilidade.", "Gostou? Grave como padrão; se travar, reiniciar desfaz."],
+    note: {
+      kind: "warn",
+      title: "Cada placa é uma",
+      text: "O ganho costuma ser de poucos por cento e cada placa aguenta um valor diferente. Artefatos na tela ou o driver reiniciando são sinal para voltar.",
+    },
+    guide: "aumentar-fps",
+    keywords: ["overclock GPU NVIDIA", "overclock placa de vídeo", "teste de estabilidade"],
+  },
+  {
+    slug: "otimizacao-do-windows",
+    group: "desempenho",
+    title: "Otimizações do Windows reversíveis",
+    tag: "NITRO OTIMIZA",
+    Icon: SlidersHorizontal,
+    summary: 'Alto desempenho, Modo de Jogo, Game DVR, HAGS, mouse, core parking e telemetria, cada um com interruptor e "Restaurar originais".',
+    metaTitle: "Otimizar Windows 11 e 10 para jogos, com botão de desfazer",
+    intro:
+      "Os ajustes do Windows que de fato ajudam em jogos, cada um com explicação e interruptor. **Restaurar originais** volta tudo como era. Defender, VBS, UAC e Windows Update ficam como estão.",
+    highlights: [
+      { title: "Energia", text: "Plano Alto desempenho e core parking." },
+      { title: "Jogos", text: "Modo de Jogo, gravação do Game Bar (Game DVR) e agendamento de GPU por hardware (HAGS)." },
+      { title: "Mouse", text: "Aceleração do mouse desligada para mira consistente." },
+      { title: "Menos coisa rodando", text: "Telemetria e serviços que não precisam ficar ligados." },
+      { title: "Sem mexer na segurança", text: 'Nada de "otimização" que desliga o antivírus, o UAC ou as atualizações.' },
+    ],
+    steps: ["Abra NITRO FERRAMENTAS › Otimização.", "Leia cada item e ligue o que fizer sentido.", "Não gostou? **Restaurar originais**."],
+    guide: "melhorar-desempenho-windows",
+    keywords: ["otimizar Windows 11", "otimizar Windows 10", "desempenho Windows 11", "performance Windows 10"],
+  },
+  {
+    slug: "ajustes-da-placa",
+    group: "desempenho",
+    title: "Ajustes da placa de vídeo",
+    Icon: MonitorCog,
+    summary: "O que está configurado e o que recomendamos para jogos no driver NVIDIA, AMD ou Intel e no Windows: atual x recomendado.",
+    metaTitle: "Melhores configurações do Painel NVIDIA, AMD e Intel para jogos",
+    intro: "Uma página só de leitura que compara o que está configurado com o recomendado para jogos. **Nada é alterado**: para mudar, ela mostra o caminho exato.",
+    highlights: [
+      { title: "NVIDIA, lido do driver", text: "Baixa latência, energia, V-Sync, limite de FPS, cache de shaders, filtragem e G-SYNC." },
+      { title: "AMD e Intel", text: "Anti-Lag, Chill, Boost, FreeSync, RSR e outras, com o caminho no app do fabricante." },
+      { title: "Windows", text: "HAGS, otimizações para jogos em janela, VRR, Modo de Jogo, GPU preferida por app e taxa de atualização." },
+      { title: "Por jogo competitivo", text: "Onde o NVIDIA Reflex do jogo substitui a baixa latência do driver." },
+    ],
+    steps: ["Abra NITRO DESEMPENHO › Ajustes da placa.", "Veja o que está como PODE MELHORAR.", "Siga o caminho mostrado no painel do fabricante."],
+    guide: "melhorar-desempenho-windows",
+    keywords: ["configurações Painel NVIDIA para jogos", "AMD Adrenalin configurações", "melhor configuração placa de vídeo"],
+  },
+  {
+    slug: "benchmark-e-stress",
+    group: "desempenho",
+    title: "Benchmarks e stress test",
+    tag: "NITRO BENCH",
+    Icon: ChartColumn,
+    summary: "Notas de CPU, GPU, ray tracing, memória e disco, com histórico. O stress test para sozinho se a temperatura passar do limite.",
+    metaTitle: "Benchmark e stress test de CPU e GPU grátis",
+    intro: "Meça o seu PC e compare antes e depois de cada ajuste, com segurança: o stress test respeita o limite de temperatura que você escolher.",
+    highlights: [
+      { title: "CPU", text: "Nota no princípio do Cinebench, com todos os núcleos e com um só." },
+      { title: "GPU e ray tracing", text: "Cena 3D e teste de ray tracing (RTX 20+, RX 6000+ ou Arc)." },
+      { title: "Memória e disco", text: "Velocidade da memória RAM e do disco, para comparar com outros PCs e depois de cada ajuste." },
+      { title: "Histórico", text: "Cada resultado fica guardado para comparar depois." },
+      { title: "Stress com limite", text: "CPU e GPU no máximo, parando sozinho no limite de temperatura." },
+    ],
+    steps: ["Abra NITRO DESEMPENHO › Benchmark (ou Stress test).", "Escolha o teste e clique em INICIAR.", "Compare com os resultados anteriores."],
+    keywords: ["benchmark CPU GPU", "stress test", "teste de temperatura"],
+  },
+
+  // ---------------- Sensores ----------------
+  {
+    slug: "sensores-e-alertas",
+    group: "sensores",
+    title: "Sensores e alertas",
+    Icon: Thermometer,
+    summary: "Temperatura, clock, uso, tensão, ventoinhas e consumo de cada peça, com alertas e o ícone perto do relógio.",
+    metaTitle: "Temperatura da CPU e da GPU em tempo real, com alertas",
+    intro: "Todos os sensores do PC, atualizados a cada segundo, e avisos quando algo sai do normal.",
+    highlights: [
+      { title: "Todos os sensores", text: "Temperatura, clock, uso, tensão, ventoinhas e consumo, com busca e filtros." },
+      { title: "Alertas", text: "CPU ou GPU quentes, GPU reduzindo o clock, RAM cheia, disco piorando no S.M.A.R.T. e bateria fraca." },
+      { title: "Na bandeja", text: "Ícone perto do relógio com as temperaturas e um menu rápido." },
+      { title: "Gravar em CSV", text: "Grave tudo e abra no Excel." },
+    ],
+    steps: ["Abra NITRO HUB › Sensores.", "Ligue os alertas que quiser.", "Ative Iniciar com o Windows para ter tudo na bandeja."],
+    note: { kind: "info", title: "Temperatura da CPU", text: "A leitura da CPU usa o driver gratuito PawnIO. Se ele faltar, o app avisa e oferece instalar." },
+    keywords: ["temperatura da CPU", "temperatura da GPU", "monitorar temperatura", "sensores do PC"],
+  },
+  {
+    slug: "painel-no-celular",
+    group: "sensores",
+    title: "Painel no celular",
+    Icon: Smartphone,
+    summary: "Temperaturas, FPS, sensores e informações do PC no celular, pela rede de casa. É só ler o QR code.",
+    metaTitle: "Veja o FPS e a temperatura do PC no celular",
+    intro: "Acompanhe o PC no celular enquanto joga, sem instalar nada no telefone: abra o QR code e pronto. **Nada pode ser alterado pelo celular**.",
+    highlights: [
+      { title: "Visão geral e jogo", text: "FPS, frametime, 1% e 0,1% low, gráfico dos últimos minutos e gargalo." },
+      { title: "Sensores e sistema", text: "Todos os sensores e as informações do Windows, CPU, GPU, RAM e discos." },
+      { title: "Só na sua rede", text: "Funciona pela rede local, sem internet, e o link tem uma chave secreta." },
+      { title: "Corte o acesso", text: "GERAR LINK NOVO derruba quem tinha o link antigo." },
+    ],
+    steps: ["Abra Painel no celular, no fim do menu lateral, e ligue o painel.", "Leia o QR code com o celular na mesma rede Wi-Fi.", "Deixe a página aberta enquanto joga."],
+    keywords: ["FPS no celular", "monitorar PC pelo celular", "temperatura no celular"],
+  },
+
+  // ---------------- Diagnóstico ----------------
+  {
+    slug: "engasgos-e-gargalo",
+    group: "diagnostico",
+    title: "Engasgos e gargalo",
+    tag: "estilo LatencyMon",
+    Icon: SearchCheck,
+    summary: "Descobre qual driver está travando o sistema e se o jogo está limitado pela GPU, pela CPU, pela memória ou pela temperatura.",
+    metaTitle: "Por que meu jogo engasga? Detector de gargalo e de engasgos",
+    intro: "Em vez de só números, o NITRO HUB diz **a causa provável** do engasgo ou do FPS baixo e o que fazer.",
+    highlights: [
+      { title: "Engasgos (DPC/ISR)", text: "Mede a latência dos drivers, como o LatencyMon, e aponta qual está travando." },
+      { title: "Detector de gargalo", text: "GPU, CPU, VRAM, RAM, temperatura ou uma trava de FPS: mostra qual é o seu." },
+      { title: "Recomendações", text: "Cada resultado vem com o que fazer em seguida." },
+    ],
+    steps: ["Abra NITRO JOGOS › Gargalo ou NITRO DESEMPENHO › Engasgos.", "Jogue ou deixe medir alguns minutos.", "Siga a recomendação."],
+    guide: "aumentar-fps",
+    keywords: ["jogo engasgando", "gargalo CPU GPU", "stutter", "LatencyMon"],
+  },
+  {
+    slug: "fichas-do-hardware",
+    group: "diagnostico",
+    title: "Fichas do hardware",
+    tag: "estilo CPU-Z e GPU-Z",
+    Icon: Cpu,
+    summary: "Ficha do processador e da placa de vídeo, ligação PCIe, saúde dos discos, teste de rede e relatório do PC.",
+    metaTitle: "Ficha do processador e da GPU (estilo CPU-Z e GPU-Z)",
+    intro: "Tudo o que dá para saber das peças, em português, com veredito quando algo está errado.",
+    highlights: [
+      { title: "Processador", text: "Codinome, litografia, núcleos P e E, clocks ao vivo com multiplicador, caches e instruções, com aviso se faltar AVX/AVX2." },
+      { title: "Placa de vídeo", text: "Ficha completa da GPU, driver e memória." },
+      { title: "Barramento PCIe", text: "Confere se a GPU e os SSDs NVMe estão com todas as pistas e na geração que aceitam." },
+      { title: "Discos e rede", text: "Saúde dos discos (S.M.A.R.T.) e um teste que mostra se o lag vem do Wi-Fi, do roteador ou do provedor." },
+      { title: "Relatório", text: "Exporta sistema, RAM, discos e saúde num arquivo HTML ou JSON." },
+    ],
+    steps: ["Abra NITRO HUB › Sistema (ou Placa de vídeo, Discos e Rede).", "Escolha a categoria (Processador, Barramento PCIe...).", "Exporte o relatório se for pedir ajuda."],
+    keywords: ["CPU-Z", "GPU-Z", "ficha do processador", "PCIe x16", "saúde do SSD"],
+  },
+
+  // ---------------- Ferramentas ----------------
+  {
+    slug: "limpeza",
+    group: "ferramentas",
+    title: "Limpeza inteligente",
+    isNew: true,
+    Icon: BrushCleaning,
+    summary: "Analisa antes de apagar e mostra o motivo de cada item. Arquivos pessoais vão para a quarentena por 7 dias e dá para restaurar.",
+    metaTitle: "Limpar o PC com segurança: arquivos antigos, duplicados e sobras",
+    intro:
+      "Libere espaço sem medo: a análise **não apaga nada**, só mostra cada item com o tamanho, a data de uso e o motivo. Só o que você marcar é limpo, e o que é pessoal vai para uma **quarentena de 7 dias**.",
+    highlights: [
+      { title: "Temporários e caches", text: "Windows, navegadores, Discord, Steam, Epic, shaders e Windows Update: apagados de vez, porque são recriados." },
+      { title: "Instaladores de driver", text: "As pastas C:\\NVIDIA, C:\\AMD e os downloads do NVIDIA App que sobram depois de instalar." },
+      { title: "Downloads antigos e grandes sem uso", text: "Arquivos sem uso há 3, 6, 12 ou 24 meses, você escolhe." },
+      { title: "Duplicados", text: "Conteúdo idêntico, byte a byte, com a cópia que fica indicada." },
+      { title: "Sobras de programas", text: "Pastas em AppData e ProgramData de programas que você já desinstalou." },
+      { title: "Quarentena e proteção", text: "7 dias para restaurar. Windows, OneDrive, projetos com Git, saves e as pastas que você proteger ficam sempre de fora." },
+    ],
+    steps: [
+      "Abra NITRO FERRAMENTAS › Limpeza e clique em **ANALISAR**.",
+      "Revise cada categoria e marque o que quer limpar.",
+      "Confira o resumo e confirme. Mudou de ideia? Aba Quarentena › RESTAURAR.",
+    ],
+    note: {
+      kind: "warn",
+      title: "Revise antes de limpar",
+      text: "Arquivos pessoais e sobras nunca vêm marcados. Sobras de programas podem ter saves de jogos: só marque o que você reconhece.",
+    },
+    guide: "melhorar-desempenho-windows",
+    keywords: ["limpar PC", "liberar espaço no disco", "arquivos duplicados", "limpar arquivos temporários", "PC lento"],
+  },
+  {
+    slug: "busca-rapida",
+    group: "ferramentas",
+    title: "Busca rápida (Ctrl+K)",
+    isNew: true,
+    Icon: Search,
+    summary: "Uma janela de vidro, no estilo do Spotlight, para achar qualquer página, ação ou jogo. Se quiser, também arquivos do PC.",
+    metaTitle: "Busca rápida com Ctrl+K: páginas, jogos e arquivos do PC",
+    intro: "Aperte **Ctrl+K** em qualquer tela e digite: páginas, ações e jogos aparecem na hora. A busca de arquivos do PC é opcional e vem **desligada**.",
+    highlights: [
+      { title: "Tudo no teclado", text: "Setas para navegar, Enter para abrir, Esc para fechar." },
+      { title: "Arquivos do PC (opcional)", text: "Usa o índice da Pesquisa do Windows, que já existe no PC. Nada é enviado para lugar nenhum." },
+      { title: "Só as pastas que você quiser", text: "Limite a busca às pastas escolhidas." },
+      { title: "Abrir ou mostrar a pasta", text: "Enter abre o arquivo; Ctrl+Enter abre a pasta dele." },
+    ],
+    steps: ["Aperte **Ctrl+K** (ou a lupa no topo).", "Digite o que procura.", 'Para incluir arquivos, ligue "Arquivos do PC" no rodapé da busca.'],
+    keywords: ["buscar arquivos no Windows", "Spotlight para Windows", "atalho Ctrl+K"],
+  },
+  {
+    slug: "aparencia",
+    group: "ferramentas",
+    title: "Aparência e Vidro fosco",
+    isNew: true,
+    Icon: Palette,
+    summary: "Escuro ou claro, cor de destaque, cantos, fonte, tamanho e vidro: Mica, Acrylic ou o novo Vidro fosco, com intensidade ajustável.",
+    metaTitle: "Aparência: tema escuro, cores e Vidro fosco no Windows 11",
+    intro: "Deixe o app com a sua cara. O **Vidro fosco** desfoca de verdade o que está atrás da janela, também quando ela não está em foco.",
+    highlights: [
+      { title: "Tema e cor", text: "Escuro, claro ou igual ao Windows, com cores prontas ou a sua." },
+      { title: "Vidro", text: "Mica, Acrylic ou Vidro fosco (Windows 11), com intensidade ajustável." },
+      { title: "Cantos, fonte e tamanho", text: "Cantos arredondados, suaves ou retos, fonte dos títulos e escala da interface." },
+      { title: "Leve", text: "O vidro é desenhado pelo próprio Windows: quase não pesa." },
+    ],
+    steps: ["Abra Aparência, no fim do menu lateral.", "Escolha o tema, a cor e o vidro.", "Ajuste a intensidade do fosco."],
+    note: {
+      kind: "info",
+      title: "Vidro não aparece?",
+      text: "Ligue Configurações › Personalização › Cores › Efeitos de transparência. Sem isso, o Windows desenha todo vidro como cor sólida.",
+    },
+    keywords: ["tema escuro", "efeito vidro Windows 11", "acrylic", "mica"],
+  },
+  {
+    slug: "inicializacao-e-apps",
+    group: "ferramentas",
+    title: "Inicialização e apps",
+    Icon: Power,
+    summary: "Veja e desative o que abre com o Windows e instale os apps essenciais de uma vez depois de formatar.",
+    metaTitle: "Programas que iniciam com o Windows e apps essenciais pós-formatação",
+    intro: "Para o dia a dia e para depois de formatar: menos coisa abrindo com o Windows e os apps de sempre instalados de uma vez.",
+    highlights: [
+      { title: "Inicialização", text: 'Desative ou remova o que abre com o Windows, com "Restaurar removidos".' },
+      { title: "Instalar apps", text: "Steam, Chrome, Discord, 7-Zip, VLC e outros, na versão oficial, pelo winget." },
+      { title: "Drivers", text: "Verifica, baixa e instala o driver de vídeo: NVIDIA e AMD automáticos, outros fabricantes pela página oficial." },
+    ],
+    steps: [
+      "Abra NITRO FERRAMENTAS › Inicialização, Instalar apps ou Drivers.",
+      "Desmarque o que não precisa ou marque o que quer instalar.",
+      "Pronto: vale na próxima vez que o Windows iniciar.",
+    ],
+    keywords: ["programas que iniciam com o Windows", "o que instalar depois de formatar", "winget"],
+  },
+  {
+    slug: "nitro-maker",
+    group: "ferramentas",
+    title: "NITRO MAKER",
+    tag: "Arduino e ESP32",
+    Icon: Usb,
+    summary: "Limpa portas COM fantasmas e resolve os drivers CH340, CP2102, FTDI e Prolific de placas Arduino e ESP32.",
+    metaTitle: "Arduino e ESP32 não aparecem? Drivers CH340, CP2102 e portas COM",
+    intro: "Para quem mexe com eletrônica: a placa não aparece ou a porta COM está presa? O NITRO MAKER resolve.",
+    highlights: [
+      { title: "Portas COM", text: "Lista as portas em uso e libera as fantasmas, que prendem os números." },
+      { title: "Drivers seriais", text: "CH340, CP2102, FTDI e Prolific, com os drivers oficiais dos fabricantes." },
+    ],
+    steps: ["Abra NITRO MAKER › Portas COM ou Drivers seriais.", "Veja as portas e os drivers.", "Instale o driver que faltar ou libere as portas."],
+    keywords: ["driver CH340", "driver CP2102", "porta COM Arduino", "ESP32 não aparece"],
+  },
+];
+
+export function getFeature(slug: string): Feature | undefined {
+  return FEATURES.find((f) => f.slug === slug);
+}
+
+export function featuresOf(group: GroupId): Feature[] {
+  return FEATURES.filter((f) => f.group === group);
+}

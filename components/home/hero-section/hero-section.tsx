@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { DownloadLink } from "@/components/home/download-link";
 import { SectionBackground } from "@/components/home/section-background";
 import { GitHubIcon } from "@/components/icons/github-icon";
@@ -16,10 +18,22 @@ export function HeroSection() {
       <SectionBackground variant="aurora" />
       <Container className="relative grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1fr_1.08fr] lg:gap-14 lg:py-24">
         <div className="min-w-0">
-          <p className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[11px] font-semibold tracking-[0.16em] text-primary-soft uppercase">
-            <span className="size-1.5 rounded-full bg-ok" aria-hidden />
-            Grátis e sem anúncios
-          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[11px] font-semibold tracking-[0.16em] text-primary-soft uppercase">
+              <span className="size-1.5 rounded-full bg-ok" aria-hidden />
+              Grátis e sem anúncios
+            </p>
+            <Link
+              href="/recursos/limpeza"
+              className="group inline-flex items-center gap-1.5 rounded-full border border-ok/30 bg-ok/[0.07] px-3 py-1 text-xs text-muted-foreground transition-colors hover:border-ok/60 hover:text-foreground"
+            >
+              <span className="font-mono text-[10px] font-bold tracking-wider text-ok uppercase">Novo</span>
+              Limpeza inteligente, busca com vidro e Vidro fosco
+              <span className="transition-transform group-hover:translate-x-0.5" aria-hidden>
+                →
+              </span>
+            </Link>
+          </div>
 
           <h1 id="hero-title" className="mt-6 font-display text-[clamp(2.4rem,7.4vw,4.3rem)] leading-[1.02] font-black tracking-[-0.045em] text-balance">
             Mais desempenho no seu PC, <GradientText>num app só.</GradientText>

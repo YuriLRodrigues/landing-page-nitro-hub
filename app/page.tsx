@@ -10,6 +10,7 @@ import { RequirementsSection } from "@/components/home/requirements-section";
 import { SafetySection } from "@/components/home/safety-section";
 import { JsonLd } from "@/components/seo/json-ld";
 
+import { FEATURES } from "@/lib/features";
 import { AUTHOR, LINKS } from "@/lib/links";
 import { plainText } from "@/lib/rich-text";
 import { SITE } from "@/lib/site";
@@ -48,17 +49,7 @@ function homeJsonLd() {
         installUrl: LINKS.download,
         isAccessibleForFree: true,
         offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
-        featureList: [
-          "Overlay de FPS com frametime, 1% e 0,1% low",
-          "Modo jogo que prepara o Windows e desfaz ao fechar o jogo",
-          "Otimizações do Windows 11 e 10 com botão de desfazer",
-          "Sensores de temperatura, uso e clock com alertas",
-          "Overclock de GPU NVIDIA com áreas de risco",
-          "Detector de gargalo e de engasgos (DPC/ISR)",
-          "Fichas do processador e da placa de vídeo",
-          "Benchmarks e stress test",
-          "Painel no celular pela rede local",
-        ],
+        featureList: FEATURES.map((f) => f.title),
         keywords: SITE.keywords.join(", "),
         author: { "@id": `${base}/#autor` },
       },
