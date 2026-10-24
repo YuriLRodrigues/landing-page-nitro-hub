@@ -22,6 +22,11 @@ const csp = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  /**
+   * Sem o otimizador de imagens da Vercel: a cota grátis dele acabou e ele passou a responder 402 (o logo do topo sumia).
+   * As imagens do site são poucas e pequenas (PNG de poucos KB), então vão direto, do jeito que estão.
+   */
+  images: { unoptimized: true },
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
