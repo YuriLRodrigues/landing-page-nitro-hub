@@ -6,6 +6,14 @@ import { join } from "node:path";
 /** Tamanho padrão das prévias de link (WhatsApp, Discord, redes). */
 export const OG_SIZE = { width: 1200, height: 630 };
 
+/**
+ * Metadados de uma imagem de prévia gerada por uma rota og.png. As imagens saem com extensão de propósito: o GitHub
+ * Pages escolhe o tipo do arquivo pela extensão, e sem ela WhatsApp, Discord e LinkedIn podem ignorar a prévia.
+ */
+export function ogImage(url: string, alt: string) {
+  return [{ url, alt, type: "image/png", ...OG_SIZE }];
+}
+
 const logo = await readFile(join(process.cwd(), "public/logo.png"));
 const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
 

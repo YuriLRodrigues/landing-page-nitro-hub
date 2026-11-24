@@ -40,7 +40,7 @@ function homeJsonLd() {
         name: SITE.name,
         description: SITE.description,
         url: base,
-        image: `${base}/opengraph-image`,
+        image: `${base}/og.png`,
         applicationCategory: "UtilitiesApplication",
         applicationSubCategory: "Otimização e monitoramento de PC para jogos",
         operatingSystem: "Windows 11, Windows 10 (64 bits)",

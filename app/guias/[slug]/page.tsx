@@ -12,6 +12,7 @@ import { RichText } from "@/components/ui/rich-text";
 
 import { GUIDES, getGuide } from "@/lib/guides";
 import { AUTHOR, LINKS } from "@/lib/links";
+import { ogImage } from "@/lib/og-image";
 import { plainText } from "@/lib/rich-text";
 import { SITE } from "@/lib/site";
 import { getSiteUrl } from "@/lib/site-url";
@@ -47,8 +48,9 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
       publishedTime: guide.published,
       modifiedTime: guide.updated,
       authors: [LINKS.authorGithub],
+      images: ogImage(`${path}/og.png`, guide.title),
     },
-    twitter: { card: "summary_large_image", title: guide.metaTitle, description: guide.description },
+    twitter: { card: "summary_large_image", title: guide.metaTitle, description: guide.description, images: [`${path}/og.png`] },
   };
 }
 
@@ -82,7 +84,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
         author,
         publisher: author,
         mainEntityOfPage: url,
-        image: `${url}/opengraph-image`,
+        image: `${url}/og.png`,
         keywords: guide.keywords.join(", "),
         articleSection: guide.sections.map(({ title }) => title),
         abstract: plainText(guide.intro),

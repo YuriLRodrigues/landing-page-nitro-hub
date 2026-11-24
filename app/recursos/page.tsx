@@ -9,6 +9,7 @@ import { GradientText } from "@/components/ui/gradient-text";
 import { Reveal } from "@/components/ui/reveal";
 
 import { FEATURES, featuresOf, GROUPS } from "@/lib/features";
+import { ogImage } from "@/lib/og-image";
 import { getSiteUrl } from "@/lib/site-url";
 
 const DESCRIPTION = "Todos os recursos do NITRO HUB, o app grátis para Windows 11 e 10: Modo jogo, overlay de FPS, overclock, otimizações, sensores, limpeza, diagnóstico e mais.";
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   title: "Recursos: overlay de FPS, Modo jogo, limpeza e mais",
   description: DESCRIPTION,
   alternates: { canonical: "/recursos" },
-  openGraph: { type: "website", locale: "pt_BR", url: "/recursos", title: "Recursos do NITRO HUB", description: DESCRIPTION },
+  openGraph: { type: "website", locale: "pt_BR", url: "/recursos", title: "Recursos do NITRO HUB", description: DESCRIPTION, images: ogImage("/og.png", "Recursos do NITRO HUB") },
 };
 
 export default function FeaturesIndexPage() {

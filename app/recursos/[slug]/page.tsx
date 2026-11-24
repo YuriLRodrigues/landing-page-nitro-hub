@@ -18,6 +18,7 @@ import { RichText } from "@/components/ui/rich-text";
 
 import { FEATURES, getFeature, GROUPS, type MockupId } from "@/lib/features";
 import { getGuide } from "@/lib/guides";
+import { ogImage } from "@/lib/og-image";
 import { plainText } from "@/lib/rich-text";
 import { SITE } from "@/lib/site";
 import { getSiteUrl } from "@/lib/site-url";
@@ -59,8 +60,8 @@ export async function generateMetadata({ params }: FeaturePageProps): Promise<Me
     description,
     keywords: feature.keywords,
     alternates: { canonical: path },
-    openGraph: { type: "website", locale: "pt_BR", url: path, siteName: SITE.name, title: feature.metaTitle, description },
-    twitter: { card: "summary_large_image", title: feature.metaTitle, description },
+    openGraph: { type: "website", locale: "pt_BR", url: path, siteName: SITE.name, title: feature.metaTitle, description, images: ogImage(`${path}/og.png`, feature.title) },
+    twitter: { card: "summary_large_image", title: feature.metaTitle, description, images: [`${path}/og.png`] },
   };
 }
 

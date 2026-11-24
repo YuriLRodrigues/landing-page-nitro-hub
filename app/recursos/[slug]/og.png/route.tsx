@@ -1,19 +1,17 @@
 import { FEATURES, getFeature } from "@/lib/features";
-import { OG_SIZE, renderOgImage } from "@/lib/og-image";
+import { renderOgImage } from "@/lib/og-image";
 import { plainText } from "@/lib/rich-text";
 import { SITE } from "@/lib/site";
 
-/** Prévia do link de cada recurso. */
-export const alt = "Recurso do NITRO HUB";
-export const size = OG_SIZE;
-export const contentType = "image/png";
+/** Prévia do link de cada recurso, gerada no build como as páginas. */
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
-/** Gera as imagens no build, como as páginas. */
 export function generateStaticParams() {
   return FEATURES.map(({ slug }) => ({ slug }));
 }
 
-export default async function FeatureOpenGraphImage({ params }: { params: Promise<{ slug: string }> }) {
+export async function GET(_request: Request, { params }: { params: Promise<{ slug: string }> }) {
   const feature = getFeature((await params).slug);
 
   return renderOgImage({

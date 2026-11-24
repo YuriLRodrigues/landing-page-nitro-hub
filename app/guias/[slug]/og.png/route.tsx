@@ -1,18 +1,16 @@
 import { GUIDES, getGuide } from "@/lib/guides";
-import { OG_SIZE, renderOgImage } from "@/lib/og-image";
+import { renderOgImage } from "@/lib/og-image";
 import { SITE } from "@/lib/site";
 
-/** Prévia do link de cada guia. */
-export const alt = "Guia de desempenho do NITRO HUB";
-export const size = OG_SIZE;
-export const contentType = "image/png";
+/** Prévia do link de cada guia, gerada no build como as páginas. */
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
-/** Gera as imagens no build, como as páginas. */
 export function generateStaticParams() {
   return GUIDES.map(({ slug }) => ({ slug }));
 }
 
-export default async function GuideOpenGraphImage({ params }: { params: Promise<{ slug: string }> }) {
+export async function GET(_request: Request, { params }: { params: Promise<{ slug: string }> }) {
   const guide = getGuide((await params).slug);
 
   return renderOgImage({

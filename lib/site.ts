@@ -1,7 +1,7 @@
 export const SITE = {
   name: "NITRO HUB",
   /** Endereço de produção: canonical, sitemap e Open Graph usam este quando `NEXT_PUBLIC_SITE_URL` não está definida. */
-  url: "https://nitro-hub-lp.vercel.app",
+  url: "https://yurilrodrigues.github.io/landing-page-nitro-hub",
   title: "NITRO HUB — Otimizar o PC e aumentar o FPS no Windows 11 e 10",
   description: "App grátis em português para melhorar o desempenho do PC no Windows 11 e 10: overlay de FPS, Modo jogo, otimizações com desfazer, sensores e overclock.",
   /** O Google ignora a meta keywords, mas o Bing ainda a lê; o que conta mesmo são os títulos e os textos da página. */

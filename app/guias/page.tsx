@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { Container } from "@/components/ui/container";
 
 import { GUIDES } from "@/lib/guides";
+import { ogImage } from "@/lib/og-image";
 import { getSiteUrl } from "@/lib/site-url";
 
 const TITLE = "Guias para melhorar o desempenho do PC";
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   title: "Guias: desempenho no Windows 11 e 10, FPS e tela esticada",
   description: DESCRIPTION,
   alternates: { canonical: "/guias" },
-  openGraph: { type: "website", locale: "pt_BR", url: "/guias", title: TITLE, description: DESCRIPTION },
+  openGraph: { type: "website", locale: "pt_BR", url: "/guias", title: TITLE, description: DESCRIPTION, images: ogImage("/og.png", TITLE) },
 };
 
 export default function GuidesIndexPage() {

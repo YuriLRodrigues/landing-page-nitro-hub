@@ -2,6 +2,8 @@ import { LINKS } from "@/lib/links";
 import { getLatestRelease } from "@/lib/release";
 import { ShieldAlert, ShieldCheck } from "lucide-react";
 
+import { ReleaseHash } from "./release-hash";
+
 const linkClassName = "rounded-sm font-medium text-primary-soft underline underline-offset-4 hover:text-foreground";
 
 /** Onde baixar com segurança, como conferir o arquivo (SHA-256) e o que o NITRO HUB nunca faz: contra instaladores falsos. */
@@ -25,23 +27,7 @@ export async function OfficialDownload() {
         <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-background/70 px-3.5 py-2.5 font-mono text-[13px] text-foreground">
           Get-FileHash .\NitroHub-Setup.exe
         </pre>
-        {release ? (
-          <>
-            <p className="mt-3 text-sm text-muted-foreground">
-              O resultado tem que ser igual a este (versão <strong className="font-semibold text-foreground">{release.version}</strong>
-              {release.setupSize > 0 ? `, ${(release.setupSize / 1048576).toFixed(1).replace(".", ",")} MB` : ""}):
-            </p>
-            <p className="mt-2 rounded-lg border border-ok/25 bg-background/70 px-3.5 py-2.5 font-mono text-[12.5px] leading-relaxed break-all text-ok">{release.setupSha256}</p>
-          </>
-        ) : (
-          <p className="mt-3 text-sm text-muted-foreground">
-            Compare com o SHA-256 publicado nas notas da{" "}
-            <a href={LINKS.releases} target="_blank" rel="noopener noreferrer" className={linkClassName}>
-              versão mais recente
-            </a>
-            .
-          </p>
-        )}
+        <ReleaseHash initial={release} />
         <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
           Cada versão no GitHub também traz o arquivo <code className="font-mono text-foreground/85">SHA256SUMS.txt</code>, com o hash de todos os arquivos dela.
         </p>

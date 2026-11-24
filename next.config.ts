@@ -1,50 +1,20 @@
 import type { NextConfig } from "next";
 
 /**
- * Cabeçalhos de segurança: o site só carrega scripts, estilos e fontes dele mesmo (nada de terceiros), não pode ser
- * aberto dentro de outro site (contra páginas falsas que "embrulham" esta) e não envia o endereço completo para fora.
- * Os scripts inline são os do próprio Next (dados da página e JSON-LD); em desenvolvimento o Next precisa de eval.
+ * Site estático para o GitHub Pages: `next build` gera a pasta out/ e o workflow .github/workflows/deploy-pages.yml publica.
+ * NEXT_PUBLIC_BASE_PATH vem do workflow, porque o site fica em /landing-page-nitro-hub (veja lib/base-path.ts).
+ * O Pages não deixa configurar cabeçalhos HTTP, então a política de segurança (CSP) foi para uma <meta> em app/layout.tsx.
  */
-const isDev = process.env.NODE_ENV !== "production";
-const csp = [
-  "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
-  "font-src 'self' data:",
-  `connect-src 'self'${isDev ? " ws:" : ""}`,
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-  "upgrade-insecure-requests",
-].join("; ");
+const basePath = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/$/, "");
 
 const nextConfig: NextConfig = {
-  poweredByHeader: false,
-  /**
-   * Sem o otimizador de imagens da Vercel: a cota grátis dele acabou e ele passou a responder 402 (o logo do topo sumia).
-   * As imagens do site são poucas e pequenas (PNG de poucos KB), então vão direto, do jeito que estão.
-   */
+  output: "export",
+  trailingSlash: true,
+  ...(basePath ? { basePath } : {}),
+  /** Sem servidor de imagens no Pages: as imagens saem como estão em public/ (são poucas e pequenas). */
   images: { unoptimized: true },
   experimental: {
     optimizePackageImports: ["lucide-react"],
-  },
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          { key: "Content-Security-Policy", value: csp },
-          { key: "X-Frame-Options", value: "DENY" },
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" },
-          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
-        ],
-      },
-    ];
   },
 };
 
